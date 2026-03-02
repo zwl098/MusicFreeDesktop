@@ -9,22 +9,15 @@
     margin-right: 24px;
     flex: 1;
     position: relative;
+    border: 1px solid rgba(128, 128, 128, 0.3);
+    border-radius: 4px;
+    padding: 2px 8px;
 
     & .search-lyric-input {
       width: 100%;
-      padding-right: 26px;
     }
 
-    & .search-lyric-search {
-      position: absolute;
-      top: 0;
-      right: 0;
-      padding: 0 6px;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
+    & .search-lyric-search-btn {
       & svg {
         width: 1.1rem;
         height: 1.1rem;

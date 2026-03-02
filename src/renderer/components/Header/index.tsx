@@ -1,4 +1,6 @@
 import SvgAsset from "../SvgAsset";
+import IconButton from "@mui/material/IconButton";
+import InputBase from "@mui/material/InputBase";
 import "./index.scss";
 import { showModal } from "../Modal";
 import { useNavigate } from "react-router-dom";
@@ -49,11 +51,11 @@ export default function AppHeader() {
                 </div>
                 <HeaderNavigator></HeaderNavigator>
                 <div id="header-search" className="header-search">
-                    <input
-                        ref={inputRef}
+                    <InputBase
+                        inputRef={inputRef}
                         className="header-search-input"
                         placeholder={t("app_header.search_placeholder")}
-                        maxLength={50}
+                        inputProps={{ maxLength: 50 }}
                         onClick={() => {
                             setShowSearchHistory(true);
                         }}
@@ -72,10 +74,19 @@ export default function AppHeader() {
                                 }
                             }, 0);
                         }}
-                    ></input>
-                    <div className="search-submit" role="button" onClick={onSearchSubmit}>
-                        <SvgAsset iconName="magnifying-glass"></SvgAsset>
-                    </div>
+                        fullWidth
+                        sx={{ pl: 1, color: "var(--textColor)" }}
+                        endAdornment={
+                            <IconButton 
+                                className="search-submit" 
+                                size="small" 
+                                onClick={onSearchSubmit}
+                                sx={{ color: "inherit", opacity: 0.7, "&:hover": { opacity: 1 } }}
+                            >
+                                <SvgAsset iconName="magnifying-glass"></SvgAsset>
+                            </IconButton>
+                        }
+                    />
                     <Condition condition={showSearchHistory}>
                         <SearchHistory
                             onHistoryClick={(item) => {
@@ -96,18 +107,17 @@ export default function AppHeader() {
             </div>
 
             <div className="right-part">
-                <div
-                    role="button"
-                    className="header-button sparkles-icon"
+                <IconButton
+                    className="sparkles-icon"
+                    size="small"
                     onClick={() => {
                         showModal("Sparkles");
                     }}
                 >
                     <SvgAsset iconName="sparkles"></SvgAsset>
-                </div>
-                <div
-                    role="button"
-                    className="header-button"
+                </IconButton>
+                <IconButton
+                    size="small"
                     title={t("app_header.theme")}
                     onClick={() => {
                         navigate("/main/theme");
@@ -115,10 +125,9 @@ export default function AppHeader() {
                     }}
                 >
                     <SvgAsset iconName="t-shirt-line"></SvgAsset>
-                </div>
-                <div
-                    role="button"
-                    className="header-button"
+                </IconButton>
+                <IconButton
+                    size="small"
                     title={t("app_header.settings")}
                     onClick={() => {
                         navigate("/main/setting");
@@ -126,12 +135,11 @@ export default function AppHeader() {
                     }}
                 >
                     <SvgAsset iconName="cog-8-tooth"></SvgAsset>
-                </div>
+                </IconButton>
                 <div className="header-divider"></div>
-                <div
-                    role="button"
+                <IconButton
+                    size="small"
                     title={t("app_header.minimode")}
-                    className="header-button"
                     onClick={() => {
                         appWindowUtil.setMinimodeWindow(!isMiniMode);
                         if (!isMiniMode) {
@@ -140,26 +148,24 @@ export default function AppHeader() {
                     }}
                 >
                     <SvgAsset iconName="picture-in-picture-line"></SvgAsset>
-                </div>
-                <div
-                    role="button"
+                </IconButton>
+                <IconButton
+                    size="small"
                     title={t("app_header.minimize")}
-                    className="header-button"
                     onClick={() => {
                         appWindowUtil.minMainWindow();
                     }}
                 >
                     <SvgAsset iconName="minus"></SvgAsset>
-                </div>
-                <div role="button" className="header-button" onClick={() => {
+                </IconButton>
+                <IconButton size="small" onClick={() => {
                     appWindowUtil.toggleMainWindowMaximize();
                 }}>
                     <SvgAsset iconName="square"></SvgAsset>
-                </div>
-                <div
-                    role="button"
+                </IconButton>
+                <IconButton
+                    size="small"
                     title={t("app_header.exit")}
-                    className="header-button"
                     onClick={() => {
                         const exitBehavior = AppConfig.getConfig("normal.closeBehavior");
                         if (exitBehavior === "minimize") {
@@ -170,7 +176,7 @@ export default function AppHeader() {
                     }}
                 >
                     <SvgAsset iconName="x-mark"></SvgAsset>
-                </div>
+                </IconButton>
             </div>
         </div>
     );

@@ -3,6 +3,7 @@ import "./index.scss";
 import { HTMLInputTypeAttribute, useState } from "react";
 import { IAppConfig } from "@/types/app-config";
 import useAppConfig from "@/hooks/useAppConfig";
+import TextField from "@mui/material/TextField";
 
 interface InputSettingItemProps<T extends keyof IAppConfig> {
     keyPath: T;
@@ -33,41 +34,36 @@ export default function InputSettingItem<T extends keyof IAppConfig>(
 
     return (
         <div
-            className="setting-view--input-setting-item-container"
-            style={{
-                width,
-            }}
+            className="setting-view--input-setting-item-container setting-row"
+            style={{ width }}
         >
-            {label ? <div className="input-label">{label}</div> : null}
-            <input
+            <TextField
+                label={label}
+                variant="outlined"
+                size="small"
+                fullWidth
                 disabled={disabled}
                 spellCheck={false}
+                type={type}
+                value={(tmpValue || "") as string}
                 onChange={(e) => {
                     setTmpValue(e.target.value ?? null);
                 }}
-                type={type}
                 onBlur={() => {
-                    if (tmpValue === null) {
-                        return;
-                    }
-                    const event = new Event("ConfigChanged", {
-                        cancelable: true,
-                    });
-
+                    if (tmpValue === null) return;
+                    
+                    const event = new Event("ConfigChanged", { cancelable: true });
                     if (onChange) {
                         onChange(event, tmpValue as any);
                     }
 
                     if (!event.defaultPrevented) {
-                        console.log(tmpValue);
                         AppConfig.setConfig({
-                            [keyPath]: trim ? tmpValue.trim() as any : tmpValue as any,
+                            [keyPath]: trim ? (tmpValue.trim() as any) : (tmpValue as any),
                         });
                     }
                 }}
-                defaultValue={value as string}
-                value={(tmpValue || "") as string}
-            ></input>
+            />
         </div>
     );
 }

@@ -4,6 +4,10 @@ import { useEffect, useRef, useState } from "react";
 import Condition from "@/renderer/components/Condition";
 import { useTranslation } from "react-i18next";
 import camelToSnake from "@/common/camel-to-snake";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
 
 export default function SettingView() {
     const [selected, setSelected] = useState(routers[0].id);
@@ -13,9 +17,14 @@ export default function SettingView() {
     const bodyContainerRef = useRef<HTMLDivElement>();
     const intersectionRatioRef = useRef<Map<string, number>>(new Map());
 
+    const isProgrammaticScroll = useRef(false);
+    const scrollTimeoutRef = useRef<NodeJS.Timeout>();
+
     useEffect(() => {
         intersectionObserverRef.current = new IntersectionObserver(
             (targets) => {
+                if (isProgrammaticScroll.current) return;
+                
                 const ratio = intersectionRatioRef.current;
                 targets.forEach((target) => {
                     ratio.set(target.target.id, target.intersectionRatio);
@@ -28,7 +37,9 @@ export default function SettingView() {
                         maxVal = entry[1];
                     }
                 }
-                setSelected(maxId.slice(8));
+                if (maxId) {
+                    setSelected(maxId.slice(8));
+                }
             },
             {
                 root: bodyContainerRef.current,
@@ -47,62 +58,73 @@ export default function SettingView() {
                 .getElementById("page-container")
                 ?.classList?.remove("page-container-full-width");
 
-            intersectionObserverRef.current.disconnect();
+            if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+            intersectionObserverRef.current?.disconnect();
             intersectionObserverRef.current = null;
-            intersectionRatioRef.current.clear();
+            intersectionRatioRef.current?.clear();
             intersectionRatioRef.current = null;
         };
     }, []);
 
     return (
-        <div
+        <Box
             id="page-container"
             className="page-container-fw setting-view--container"
+            sx={{ display: "flex", flexDirection: "column", height: "100%", width: "100%" }}
         >
-            <div className="setting-view--header">
-                <div className="tab-list-container">
+            <Box className="setting-view--header" sx={{ borderBottom: 1, borderColor: "divider", px: 3 }}>
+                <Tabs
+                    value={selected}
+                    onChange={(event, newValue) => {
+                        setSelected(newValue);
+                        isProgrammaticScroll.current = true;
+                        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+                        
+                        document.getElementById(`setting-${newValue}`)?.scrollIntoView({
+                            behavior: "smooth",
+                        });
+                        
+                        // 预估滚动动画需要大约 600ms 完成
+                        scrollTimeoutRef.current = setTimeout(() => {
+                            isProgrammaticScroll.current = false;
+                        }, 800);
+                    }}
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    aria-label="setting tabs"
+                >
                     {routers.map((setting) => (
-                        <div
+                        <Tab
                             key={setting.id}
-                            className="tab-list-item"
-                            data-headlessui-state={
-                                selected === setting.id ? "selected" : null
-                            }
-                            role="button"
-                            onClick={() => {
-                                document
-                                    .getElementById(`setting-${setting.id}`)
-                                    ?.scrollIntoView({
-                                        behavior: "smooth",
-                                    });
-                            }}
-                        >
-                            {t(`settings.section_name.${camelToSnake(setting.id)}`)}
-                        </div>
+                            value={setting.id}
+                            label={t(`settings.section_name.${camelToSnake(setting.id)}`)}
+                            sx={{ textTransform: "none", fontWeight: 600, fontSize: "1rem" }}
+                        />
                     ))}
-                </div>
-            </div>
-            <div className="setting-view--body" ref={bodyContainerRef}>
+                </Tabs>
+            </Box>
+            <Box className="setting-view--body" ref={bodyContainerRef} sx={{ flex: 1, overflowY: "auto", px: 3, pt: 2, pb: 4 }}>
                 {routers.map((setting, index) => {
                     const Component = setting.component as any;
 
                     return (
-                        <div
+                        <Box
                             className="setting-view--body-item-container"
                             id={`setting-${setting.id}`}
                             key={setting.id}
+                            sx={{ width: "100%", mb: index !== routers.length - 1 ? 4 : 0 }}
                         >
-                            <div className="setting-view--body-title">
+                            <Typography variant="h6" className="setting-view--body-title" sx={{ fontWeight: 600, mb: 2 }}>
                                 {t(`settings.section_name.${camelToSnake(setting.id)}`)}
-                            </div>
-                            <Component></Component>
+                            </Typography>
+                            <Component />
                             <Condition condition={index !== routers.length - 1}>
-                                <div className="divider"></div>
+                                <div className="divider" style={{ marginTop: "24px" }}></div>
                             </Condition>
-                        </div>
+                        </Box>
                     );
                 })}
-            </div>
-        </div>
+            </Box>
+        </Box>
     );
 }

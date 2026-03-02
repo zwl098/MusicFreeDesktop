@@ -5,6 +5,8 @@ import useMounted from "@/hooks/useMounted";
 import Condition from "@/renderer/components/Condition";
 import Loading from "@/renderer/components/Loading";
 import { useTranslation } from "react-i18next";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 interface ISimpleInputWithStateProps<PromiseItem> {
     title: string;
@@ -50,20 +52,22 @@ export default function SimpleInputWithState<PromiseItem>(
                     falsy={<Loading text={loadingText}></Loading>}
                 >
                     <div className="input-area">
-                        <input
+                        <TextField
                             autoFocus
                             placeholder={placeholder}
                             onChange={(e) => {
                                 setInputText(e.target.value.slice(0, maxLength));
                             }}
                             value={inputText}
-                        ></input>
+                            variant="outlined"
+                            size="small"
+                            fullWidth
+                        />
                     </div>
                     <div className="opeartion-area">
-                        <div
-                            role="button"
-                            data-type="primaryButton"
-                            data-disabled={inputText.length === 0}
+                        <Button
+                            variant="contained"
+                            disabled={inputText.length === 0}
                             onClick={() => {
                                 const result = onOk?.(inputText);
                                 if (withLoading) {
@@ -85,7 +89,7 @@ export default function SimpleInputWithState<PromiseItem>(
                             }}
                         >
                             {okText ?? t("common.confirm")}
-                        </div>
+                        </Button>
                     </div>
                     <Condition condition={hints}>
                         <div className="divider"></div>

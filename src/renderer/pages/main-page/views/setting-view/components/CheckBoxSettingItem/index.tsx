@@ -1,8 +1,8 @@
-import SvgAsset from "@/renderer/components/SvgAsset";
-import classNames from "@/renderer/utils/classnames";
 import { IAppConfig } from "@/types/app-config";
 import useAppConfig from "@/hooks/useAppConfig";
 import AppConfig from "@shared/app-config/renderer";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Checkbox from "@mui/material/Checkbox";
 
 interface ICheckBoxSettingItemProps<T extends keyof IAppConfig> {
     keyPath: T;
@@ -13,42 +13,40 @@ interface ICheckBoxSettingItemProps<T extends keyof IAppConfig> {
 export default function CheckBoxSettingItem<T extends keyof IAppConfig>(
     props: ICheckBoxSettingItemProps<T>,
 ) {
-    const {
-        keyPath,
-        label,
-        onChange,
-    } = props;
+    const { keyPath, label, onChange } = props;
 
     const checked = useAppConfig(keyPath);
 
     return (
         <div className="setting-row">
-            <div
-                className={classNames({
-                    "option-item-container": true,
-                    highlight: checked as boolean,
-                })}
-                title={label}
-                role="button"
-                onClick={() => {
-                    const event = new Event("ConfigChanged", {
-                        cancelable: true,
-                    });
-                    if (onChange) {
-                        onChange(event, !checked);
-                    }
-                    if (!event.defaultPrevented) {
-                        AppConfig.setConfig({
-                            [keyPath]: !checked,
-                        });
-                    }
-                }}
-            >
-                <div className="checkbox">
-                    {checked ? <SvgAsset iconName="check"></SvgAsset> : null}
-                </div>
-                {label}
-            </div>
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        checked={Boolean(checked)}
+                        sx={{
+                            color: "var(--primaryColor)",
+                            "&.Mui-checked": {
+                                color: "var(--primaryColor)",
+                            },
+                        }}
+                        onChange={(e, newChecked) => {
+                            const event = new Event("ConfigChanged", {
+                                cancelable: true,
+                            });
+                            if (onChange) {
+                                onChange(event, newChecked);
+                            }
+                            if (!event.defaultPrevented) {
+                                AppConfig.setConfig({
+                                    [keyPath]: newChecked,
+                                });
+                            }
+                        }}
+                    />
+                }
+                label={label}
+                sx={{ ml: 0, "& .MuiFormControlLabel-label": { fontSize: "1.1rem", color: "var(--textColor)", pl: 0.5 } }}
+            />
         </div>
     );
 }

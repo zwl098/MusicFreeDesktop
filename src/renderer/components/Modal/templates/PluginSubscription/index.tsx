@@ -5,11 +5,13 @@ import {
 import { hideModal } from "../..";
 import Base from "../Base";
 import "./index.scss";
-import { ReactNode, useState } from "react";
+import { useState } from "react";
 import Condition from "@/renderer/components/Condition";
 import Empty from "@/renderer/components/Empty";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
 export default function PluginSubscription() {
     const [subscription, setSubscription] = useState(
@@ -28,8 +30,11 @@ export default function PluginSubscription() {
                             <div className="content-item" key={index}>
                                 <div className="content-item-row">
                                     <span>{t("modal.subscription_remarks")}</span>
-                                    <input
+                                    <TextField
                                         defaultValue={item.title ?? ""}
+                                        variant="outlined"
+                                        size="small"
+                                        fullWidth
                                         onChange={(e) => {
                                             setSubscription((prev) => {
                                                 const newSub = [...prev];
@@ -37,12 +42,15 @@ export default function PluginSubscription() {
                                                 return newSub;
                                             });
                                         }}
-                                    ></input>
+                                    />
                                 </div>
                                 <div className="content-item-row">
                                     <span>{t("modal.subscription_links")}</span>
-                                    <input
+                                    <TextField
                                         defaultValue={item.srcUrl ?? ""}
+                                        variant="outlined"
+                                        size="small"
+                                        fullWidth
                                         onChange={(e) => {
                                             setSubscription((prev) => {
                                                 const newSub = [...prev];
@@ -50,16 +58,15 @@ export default function PluginSubscription() {
                                                 return newSub;
                                             });
                                         }}
-                                    ></input>
+                                    />
                                 </div>
                             </div>
                         ))}
                     </Condition>
                 </div>
                 <div className="opeartion-area">
-                    <div
-                        role="button"
-                        data-type="normalButton"
+                    <Button
+                        variant="outlined"
                         onClick={() => {
                             setSubscription((prev) => [
                                 ...prev,
@@ -71,11 +78,10 @@ export default function PluginSubscription() {
                         }}
                     >
                         {t("common.add")}
-                    </div>
-                    <div
-                        role="button"
-                        data-type="dangerButton"
-                        data-fill={true}
+                    </Button>
+                    <Button
+                        variant="contained"
+                        style={{ marginLeft: "12px", paddingLeft: "24px", paddingRight: "24px" }}
                         onClick={() => {
                             setUserPreference(
                                 "subscription",
@@ -88,7 +94,7 @@ export default function PluginSubscription() {
                         }}
                     >
                         {t("common.save")}
-                    </div>
+                    </Button>
                 </div>
             </div>
         </Base>

@@ -1,10 +1,12 @@
-import { RadioGroup } from "@headlessui/react";
 import "./index.scss";
-import SvgAsset from "@/renderer/components/SvgAsset";
-import classNames from "@/renderer/utils/classnames";
 import { IAppConfig } from "@/types/app-config";
 import useAppConfig from "@/hooks/useAppConfig";
 import AppConfig from "@shared/app-config/renderer";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import Radio from "@mui/material/Radio";
 
 
 interface IRadioGroupSettingItemProps<T extends keyof IAppConfig> {
@@ -30,46 +32,43 @@ export default function RadioGroupSettingItem<T extends keyof IAppConfig>(
 
     return (
         <div className="setting-view--radio-group-setting-item-container setting-row">
-            <RadioGroup
-                value={value}
-                onChange={(val) => {
-                    AppConfig.setConfig({
-                        [keyPath]: val,
-                    });
-                }}
-            >
-                <RadioGroup.Label className={"label-container"}>
+            <FormControl component="fieldset">
+                <FormLabel component="legend" className="label-container" sx={{ color: "var(--textColor)", fontWeight: 600, fontSize: "1rem" }}>
                     {label}
-                </RadioGroup.Label>
-                <div
-                    className="options-container"
-                    style={{
-                        flexDirection: direction === "horizontal" ? "row" : "column",
+                </FormLabel>
+                <RadioGroup
+                    row={direction === "horizontal"}
+                    value={value || ""}
+                    onChange={(event) => {
+                        AppConfig.setConfig({
+                            [keyPath]: event.target.value,
+                        });
                     }}
+                    className="options-container"
                 >
-                    {options.map((option, index) => (
-                        <RadioGroup.Option key={index} value={option}>
-                            {({ checked }) => {
-                                const title = renderItem ? renderItem(option) : option as string;
-                                return (
-                                    <div
-                                        className={classNames({
-                                            "option-item-container": true,
-                                            highlight: checked,
-                                        })}
-                                        title={title}
-                                    >
-                                        <div className="checkbox">
-                                            {checked ? <SvgAsset iconName="check"></SvgAsset> : null}
-                                        </div>
-                                        {title}
-                                    </div>
-                                );
-                            }}
-                        </RadioGroup.Option>
-                    ))}
-                </div>
-            </RadioGroup>
+                    {options.map((option, index) => {
+                        const title = renderItem ? renderItem(option) : option as string;
+                        return (
+                            <FormControlLabel
+                                key={index}
+                                value={option}
+                                control={
+                                    <Radio
+                                        sx={{
+                                            color: "var(--primaryColor)",
+                                            "&.Mui-checked": {
+                                                color: "var(--primaryColor)",
+                                            },
+                                        }}
+                                    />
+                                }
+                                label={title}
+                                sx={{ "& .MuiFormControlLabel-label": { fontSize: "1.1rem", color: "var(--textColor)" } }}
+                            />
+                        );
+                    })}
+                </RadioGroup>
+            </FormControl>
         </div>
     );
 }

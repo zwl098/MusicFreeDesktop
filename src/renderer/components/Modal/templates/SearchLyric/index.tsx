@@ -8,6 +8,8 @@ import { Tab } from "@headlessui/react";
 import SearchResult from "./searchResult";
 import { useTranslation } from "react-i18next";
 import PluginManager from "@shared/plugin-manager/renderer";
+import InputBase from "@mui/material/InputBase";
+import IconButton from "@mui/material/IconButton";
 
 interface IProps {
     defaultTitle?: string;
@@ -37,7 +39,7 @@ export default function SearchLyric(props: IProps) {
             <div className="modal--search-lyric-container shadow backdrop-color">
                 <Base.Header>
                     <div className="search-lyric-input-container">
-                        <input
+                        <InputBase
                             className="search-lyric-input"
                             placeholder={t("modal.search_lyric")}
                             value={inputSearch}
@@ -49,16 +51,19 @@ export default function SearchLyric(props: IProps) {
                                     searchLyric(inputSearch);
                                 }
                             }}
-                        ></input>
-                        <div
-                            className="search-lyric-search"
-                            role="button"
-                            onClick={() => {
-                                searchLyric(inputSearch);
-                            }}
-                        >
-                            <SvgAsset iconName="magnifying-glass"></SvgAsset>
-                        </div>
+                            fullWidth
+                            endAdornment={
+                                <IconButton
+                                    className="search-lyric-search-btn"
+                                    onClick={() => {
+                                        searchLyric(inputSearch);
+                                    }}
+                                    size="small"
+                                >
+                                    <SvgAsset iconName="magnifying-glass"></SvgAsset>
+                                </IconButton>
+                            }
+                        />
                     </div>
                 </Base.Header>
                 <Tab.Group>
