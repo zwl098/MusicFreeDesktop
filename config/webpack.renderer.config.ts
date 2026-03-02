@@ -1,4 +1,5 @@
 import type { Configuration } from "webpack";
+import webpack from "webpack";
 import path from "path";
 
 import { rules } from "./webpack.rules";
@@ -48,7 +49,12 @@ export const rendererConfig: Configuration = {
   module: {
     rules,
   },
-  plugins,
+  plugins: [
+    ...plugins,
+    new webpack.DefinePlugin({
+      __dirname: JSON.stringify("/"),
+    }),
+  ],
   resolve: {
     extensions: [".js", ".ts", ".jsx", ".tsx", ".css", ".scss"],
     alias: {
