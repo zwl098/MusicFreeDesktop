@@ -161,6 +161,15 @@ app.whenReady().then(async () => {
 
     windowManager.showMainWindow();
 
+    globalShortcut.register("CommandOrControl+Alt+Up", () => {
+        const win = BrowserWindow.getFocusedWindow();
+        if (win) {
+            win.webContents.openDevTools({
+                mode: "detach",
+            });
+        }
+    });
+
     bootstrap();
 
 });

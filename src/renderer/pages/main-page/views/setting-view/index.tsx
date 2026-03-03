@@ -72,7 +72,7 @@ export default function SettingView() {
             className="page-container-fw setting-view--container"
             sx={{ display: "flex", flexDirection: "column", height: "100%", width: "100%" }}
         >
-            <Box className="setting-view--header" sx={{ borderBottom: 1, borderColor: "divider", px: 3 }}>
+            <Box className="setting-view--header" sx={{ borderBottom: 1, borderColor: "divider"  }}>
                 <Tabs
                     value={selected}
                     onChange={(event, newValue) => {
@@ -90,7 +90,7 @@ export default function SettingView() {
                         }, 800);
                     }}
                     variant="scrollable"
-                    scrollButtons="auto"
+                    scrollButtons={false}
                     aria-label="setting tabs"
                 >
                     {routers.map((setting) => (
