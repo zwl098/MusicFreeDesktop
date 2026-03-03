@@ -2,19 +2,56 @@ import { createTheme } from "@mui/material/styles";
 
 const theme = createTheme({
     palette: {
-        mode: "light",
         primary: {
-            main: "#1976d2",
+            main: "#f17d34",
         },
-        secondary: {
-            main: "#dc004e",
-        },
+        // Remove background and text from here, as MUI tries to calculate contrast on them
+        // using colorManipulator, which throws error on "var(--xxx)"
     },
     components: {
+        MuiCssBaseline: {
+            styleOverrides: {
+                body: {
+                    backgroundColor: "var(--backgroundColor)",
+                    color: "var(--textColor)",
+                },
+            },
+        },
+        MuiTypography: {
+            styleOverrides: {
+                root: {
+                    color: "var(--textColor)",
+                },
+            },
+        },
+        MuiDivider: {
+            styleOverrides: {
+                root: {
+                    borderColor: "var(--dividerColor)",
+                },
+            },
+        },
         MuiButton: {
             styleOverrides: {
                 root: {
-                    textTransform: "none", // 保持原生大小写，不全大写
+                    textTransform: "none",
+                },
+            },
+        },
+        MuiTab: {
+            styleOverrides: {
+                root: {
+                    color: "var(--textColor)",
+                    "&.Mui-selected": {
+                        color: "var(--primaryColor)",
+                    },
+                },
+            },
+        },
+        MuiTabs: {
+            styleOverrides: {
+                indicator: {
+                    backgroundColor: "var(--primaryColor)",
                 },
             },
         },
