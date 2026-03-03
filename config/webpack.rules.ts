@@ -19,23 +19,11 @@ export const rules: Required<ModuleOptions>['rules'] = [
     },
   },
   {
-    test: /\.tsx?$/,
+    test: /\.[jt]sx?$/,
     exclude: /(node_modules|\.webpack)/,
-    use: {
-      loader: 'ts-loader',
-      options: {
-        transpileOnly: true,
-      },
-    },
-  },
-  {
-    test: /\.jsx?$/,
-    use: {
-      loader: 'babel-loader',
-      options: {
-        exclude: /node_modules/,
-        presets: ['@babel/preset-react']
-      }
+    loader: 'esbuild-loader',
+    options: {
+      target: 'es2015'
     }
   },
 ];

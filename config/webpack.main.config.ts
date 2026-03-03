@@ -27,5 +27,9 @@ export const mainConfig: Configuration = {
   output: {
     filename: "[name].js",
   },
+  cache: {
+    type: "filesystem",
+    name: "main-cache"
+  },
   externals: ['sharp']
 };

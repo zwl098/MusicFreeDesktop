@@ -64,5 +64,9 @@ export const rendererConfig: Configuration = {
       "@shared": path.join(__dirname, "../src/shared")
     },
   },
+  cache: {
+    type: "filesystem",
+  },
+  devtool: process.env.NODE_ENV === "production" ? false : "eval-cheap-module-source-map",
   externals: process.platform !== "darwin" ? ["fsevents"] : undefined,
 };
