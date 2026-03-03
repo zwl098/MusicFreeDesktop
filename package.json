@@ -1,6 +1,6 @@
 {
-  "name": "musicfree-desktop",
-  "productName": "MusicFree",
+  "name": "yusic-desktop",
+  "productName": "Yusic",
   "version": "0.0.8",
   "description": "一个插件化的音乐播放器",
   "main": ".webpack/main",

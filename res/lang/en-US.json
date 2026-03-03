@@ -89,7 +89,7 @@
     "plugin_management": "Plugin Management",
     "choose_plugin": "Choose Plugin",
     "install": "Install",
-    "musicfree_plugin": "MusicFree Plugin",
+    "musicfree_plugin": "Yusic Plugin",
     "install_successfully": "Plugin Installed Successfully",
     "install_failed": "Install Failed",
     "invalid_plugin": "Invalid Plugin",
@@ -99,7 +99,7 @@
     "installing": "Installing",
     "info_hint_install_placeholder": "Please enter the plugin source URL (link ends with .json or .js)",
     "error_hint_plugin_should_end_with_js_or_json": "Plugin URL must end with .json or .js",
-    "info_hint_install_plugin": "Plugins must comply with the MusicFree plugin protocol. For details, visit the <a>official website</a>",
+    "info_hint_install_plugin": "Plugins must comply with the Yusic plugin protocol. For details, visit the <a>official website</a>",
     "subscription_setting": "Subscription Settings",
     "update_subscription": "Update Subscription",
     "update_successfully": "Update Successful",
@@ -261,7 +261,7 @@
       "short_cut": "Shortcuts",
       "network": "Network",
       "backup": "Backup & Restore",
-      "about": "About MusicFree"
+      "about": "About Yusic"
     },
     "normal": {
       "check_update": "Check for updates on startup",
@@ -344,7 +344,7 @@
       "resume_mode_append": "Append to existing playlist",
       "resume_mode_overwrite": "Overwrite existing playlist",
       "backup_by_file": "File Backup",
-      "musicfree_backup_file": "MusicFree Backup File",
+      "musicfree_backup_file": "Yusic Backup File",
       "backup_to": "Backup to...",
       "backup_by_webdav": "WebDAV Backup",
       "backup_success": "Backup Successful~",
@@ -386,13 +386,13 @@
     "install_theme": "Install Theme",
     "update_theme": "Update Theme",
     "uninstall_theme": "Uninstall Theme",
-    "musicfree_theme": "MusicFree Theme",
+    "musicfree_theme": "Yusic Theme",
     "all_files": "All Files",
     "install_theme_success": "Successfully installed theme {{name}}~",
     "install_theme_fail": "Failed to install theme: {{reason}}",
     "uninstall_theme_success": "Successfully uninstalled theme {{name}}~",
     "uninstall_theme_fail": "Failed to uninstall theme: {{reason}}",
-    "how_to_submit_new_theme": "💡How to submit a new theme: The themes in the theme marketplace are synchronized with the <Github>MusicFreeThemePacks</Github> repository. If you need to submit a new theme, please make a pull request directly.",
+    "how_to_submit_new_theme": "💡How to submit a new theme: The themes in the theme marketplace are synchronized with the <Github>YusicThemePacks</Github> repository. If you need to submit a new theme, please make a pull request directly.",
     "load_remote_theme_error": "An error occurred...",
     "invalid_theme": "Invalid theme: {{reason}}"
   }

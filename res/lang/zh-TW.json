@@ -89,7 +89,7 @@
     "plugin_management": "插件管理",
     "choose_plugin": "選擇插件",
     "install": "安裝",
-    "musicfree_plugin": "MusicFree 插件",
+    "musicfree_plugin": "Yusic 插件",
     "install_successfully": "插件安裝成功",
     "install_failed": "安裝失敗",
     "invalid_plugin": "無效的插件",
@@ -99,7 +99,7 @@
     "installing": "安裝中",
     "info_hint_install_placeholder": "輸入插件來源 URL（以 json 或 js 結尾）",
     "error_hint_plugin_should_end_with_js_or_json": "插件 URL 應以 json 或 js 結尾",
-    "info_hint_install_plugin": "插件需符合 MusicFree 特定協議，詳情請參考 <a>官方頁面</a>",
+    "info_hint_install_plugin": "插件需符合 Yusic 特定協議，詳情請參考 <a>官方頁面</a>",
     "subscription_setting": "訂閱設定",
     "update_subscription": "更新訂閱",
     "update_successfully": "更新成功",
@@ -261,7 +261,7 @@
       "short_cut": "快捷鍵",
       "network": "網絡",
       "backup": "備份與恢復",
-      "about": "關於 MusicFree"
+      "about": "關於 Yusic"
     },
     "normal": {
       "check_update": "啟動應用時檢查更新",
@@ -344,7 +344,7 @@
       "resume_mode_append": "附加到現有清單後",
       "resume_mode_overwrite": "覆蓋現有清單",
       "backup_by_file": "通過文件備份",
-      "musicfree_backup_file": "MusicFree 備份文件",
+      "musicfree_backup_file": "Yusic 備份文件",
       "backup_to": "備份到...",
       "backup_by_webdav": "WebDAV 備份",
       "backup_success": "備份成功~",
@@ -386,13 +386,13 @@
     "install_theme": "安裝主題",
     "update_theme": "更新主題",
     "uninstall_theme": "卸載主題",
-    "musicfree_theme": "MusicFree 主題",
+    "musicfree_theme": "Yusic 主題",
     "all_files": "全部檔案",
     "install_theme_success": "安裝主題{{name}}成功~",
     "install_theme_fail": "安裝主題失敗: {{reason}}",
     "uninstall_theme_success": "卸載主題{{name}}成功~",
     "uninstall_theme_fail": "卸載主題失敗: {{reason}}",
-    "how_to_submit_new_theme": "💡如何提交新主題: 主題市場中的主題與 <Github>MusicFreeThemePacks</Github> 倉庫同步，如果需要提交新主題請直接提PR。",
+    "how_to_submit_new_theme": "💡如何提交新主題: 主題市場中的主題與 <Github>YusicThemePacks</Github> 倉庫同步，如果需要提交新主題請直接提PR。",
     "load_remote_theme_error": "出錯啦...",
     "invalid_theme": "主題無效: {{reason}}"
   }
