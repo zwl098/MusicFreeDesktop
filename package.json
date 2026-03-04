@@ -22,7 +22,7 @@
   "license": "GPL",
   "lint-staged": {
     "src/**/*.{ts,tsx,js}": [
-      "npm run lint",
+      "pnpm lint",
       "git add ."
     ]
   },
